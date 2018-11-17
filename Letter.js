@@ -2,10 +2,11 @@ const inquirer = require(`inquirer`);
 
 const answersArray = [`monkey`, `hippo`, `crocodile`, `lion`, `zebra`, `giraffe`, `elephant`, `rhinoceros`, `warthog`];
 //Current word should be chosen with the "game start" mechanic
+let currentWord = 0;
 const guessObject = {};
 
 //Make a constructor of letters used in each word
-const LetterConst = currentWord => {
+const LetterConst = () => {
     const letterArray = [``];
     for (let i = 0; i < answersArray[currentWord].length; i++) {
         //If the letter array does not include the current letter in the for loop then include it in the array
@@ -22,10 +23,10 @@ const LetterConst = currentWord => {
         guessObject[letterArray[i]] = false;
     };
 
-    displayWord(currentWord, guessObject);
+    displayWord();
 };
 
-const displayWord = (currentWord, guessObject) => {
+const displayWord = () => {
     let userDisplay = ``
     //Loop through the correct answer and for each word, if the value of the object is false then log blank to the console
     for (let i = 0; i < answersArray[currentWord].length; i++) {
@@ -41,8 +42,10 @@ const displayWord = (currentWord, guessObject) => {
 };
 
 const startGame = () => {
-    const currentWord = Math.floor(Math.random() * answersArray.length);
+    currentWord = Math.floor(Math.random() * answersArray.length);
     LetterConst(currentWord)
 }
 
 startGame();
+
+module.exports = { LetterConst, startGame }
